@@ -25,7 +25,30 @@ Postgres Database: `localhost:5432/postgres`
 
 Airflow Webserver credentials: `admin/admin`
 
-## DAG
+Test task
+```
+astro dev bash
+airflow tasks test stock_market is_api_available 2024-01-01
+```
+
+## External API
+In Airflow UI: 
+```
+connection_id = stock_api
+connection_type = HTTP
+host = https://query1.finance.yahoo.com
+extra = 
+  {
+    "endpoint": "/v8/finance/chart/",
+    "headers": {
+      "Content-Type": "application/json",
+      "User-Agent": "Mozilla/5.0"
+    }  
+  }
+```
+
+
+## Tasks
 * is_api_available - check if API is available with Sensor
 * fetch_stock_proces
 * store_prices - upload to Minio
