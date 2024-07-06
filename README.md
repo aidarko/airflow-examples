@@ -3,6 +3,8 @@
 Exercise from https://www.udemy.com/course/the-ultimate-hands-on-course-to-master-apache-airflow/
 course by Marc Lamberti.
 
+*Note: it won't work without `spark` and `include` folders from the course.*
+
 
 ## Local environment setup
 
@@ -19,6 +21,12 @@ Start Docker Compose:
 astro dev start
 ```
 
+Other astro commands:
+```
+astro dev restart
+astro dev bash
+```
+
 Airflow Webserver: http://localhost:8080
 
 Postgres Database: `localhost:5432/postgres`
@@ -27,10 +35,17 @@ Airflow Webserver credentials: `admin/admin`
 
 Minio credentials: `minio/minio123`
 
+Build spark-app (requires additional `spark` folder):
+```
+cd .\spark\notebooks\stock_transform\
+docker build . -t airflow/spark-app
+```
+
 Test task
 ```
 astro dev bash
 airflow tasks test stock_market is_api_available 2024-01-01
+airflow tasks test stock_market format_prices 2024-01-01
 ```
 
 ## External APIs
