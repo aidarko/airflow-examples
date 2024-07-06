@@ -25,14 +25,17 @@ Postgres Database: `localhost:5432/postgres`
 
 Airflow Webserver credentials: `admin/admin`
 
+Minio credentials: `minio/minio123`
+
 Test task
 ```
 astro dev bash
 airflow tasks test stock_market is_api_available 2024-01-01
 ```
 
-## External API
+## External APIs
 In Airflow UI: 
+1. Finance Yahoo connection
 ```
 connection_id = stock_api
 connection_type = HTTP
@@ -46,7 +49,22 @@ extra =
     }  
   }
 ```
+2. Local Minio connection
+```
+connection_id = stock_api
+connection_type = Amazon Web Services
+AWS Access Key ID = minio
+AWS Secret Access Key = minio123
+extra =
+  {
+    "endpoint_url": "http://host.docker.internal:9000"
+  }
+```
 
+ Minio:
+```
+minio/minio123
+```
 
 ## Tasks
 * is_api_available - check if API is available with Sensor
