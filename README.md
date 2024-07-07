@@ -3,7 +3,7 @@
 Exercise from https://www.udemy.com/course/the-ultimate-hands-on-course-to-master-apache-airflow/
 course by Marc Lamberti.
 
-*Note: it won't work without `spark` and `include` folders from the course.*
+*Note: it won't work without `spark` and `include` folders from the course. Use minio pass.*
 
 
 ## Local environment setup
@@ -24,6 +24,7 @@ astro dev start
 Other astro commands:
 ```
 astro dev restart
+astro dev stop
 astro dev bash
 ```
 
@@ -40,6 +41,8 @@ Build spark-app (requires additional `spark` folder):
 cd .\spark\notebooks\stock_transform\
 docker build . -t airflow/spark-app
 ```
+
+Metabase: localhost:3000
 
 Test task
 ```
@@ -75,10 +78,14 @@ extra =
     "endpoint_url": "http://host.docker.internal:9000"
   }
 ```
-
- Minio:
+3. Local Postgres connection
 ```
-minio/minio123
+connection_id = postgres
+connection_type = Postgres
+host = postgres
+login = postgres
+password = postgres
+port = 5432
 ```
 
 ## Tasks
