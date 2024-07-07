@@ -1,5 +1,5 @@
 from airflow.hooks.base import BaseHook
-from airflow.excpetions import AirflowNotFoundException
+from airflow.exceptions import AirflowNotFoundException
 import requests
 import json
 from minio import Minio
@@ -42,7 +42,7 @@ def _store_prices(stock):
 def _get_formatted_csv(path):
   client = _get_minio_client()
   prefix_name = f"{path.split('/')[1]}/formatted_prices/"
-  objects = client.list_objects(BUCKET_NAME, prefix=prefix_name, recursice=True)
+  objects = client.list_objects(BUCKET_NAME, prefix=prefix_name, recursive=True)
   for obj in objects:
     if obj.object_name.endswith('.csv'):
       return obj.object_name
